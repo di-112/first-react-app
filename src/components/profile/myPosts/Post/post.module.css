@@ -3,7 +3,7 @@
    align-items: center;
    height: 5vh;
    margin-bottom: 50px;
-   background: white;
+   background: rgba(255, 255, 255, 0.7);
    height: auto;
    padding: 10px;
    border: 2px solid black;
@@ -26,4 +26,5 @@
 
 .post__comment{
    margin-bottom: 20px;
+   font-weight: 700;
 }
