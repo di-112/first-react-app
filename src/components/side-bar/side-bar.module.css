@@ -1,0 +1,29 @@
+.sideBar{
+   background: rgba(0, 255, 255, 0.7);
+   border: 2px solid black;
+   border-radius: 10px;
+   height: 100%;
+   grid-area: side-bar;
+   text-align: center;
+   padding-top: 30px;
+}
+
+.sideBar__item{
+   color: white;
+   text-transform: uppercase;
+   margin-bottom: 30px;
+   transition: all 0.5s ease 0s;
+   text-shadow: 1px 0 1px #000, 
+   0 1px 1px #000, 
+   -1px 0 1px #000, 
+   0 -1px 1px #000;
+}
+
+.sideBar__item:hover{
+   transform: translateY(-10px);
+   cursor: pointer;
+}
+
+li .active{
+   color: gold;
+}

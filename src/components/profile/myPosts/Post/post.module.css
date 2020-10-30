@@ -1,0 +1,29 @@
+.post {
+   display: flex;
+   align-items: center;
+   height: 5vh;
+   margin-bottom: 50px;
+   background: white;
+   height: auto;
+   padding: 10px;
+   border: 2px solid black;
+   border-radius: 30px;
+}
+
+.post__logo{
+   width: 60px;
+   border-radius: 50%;
+   border: 2px solid black;
+}
+
+.post__content{
+   margin-left: 50px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   height: 100%;
+}
+
+.post__comment{
+   margin-bottom: 20px;
+}

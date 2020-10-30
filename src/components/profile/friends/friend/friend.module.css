@@ -1,0 +1,19 @@
+.friend{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   color: white;
+   font-weight: 700;
+   font-size: 16px;
+}
+
+.friend__avatar{
+   width: 70px;
+   border-radius: 50%;
+   border: 1px solid white;
+}
+
+.friend__name{
+   margin: 20px 0 0;
+}
