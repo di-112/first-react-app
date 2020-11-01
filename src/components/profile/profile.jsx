@@ -4,12 +4,12 @@ import Friends from './friends/friends'
 import MyPosts from './myPosts/myPosts'
 import styles from './profile.module.css'
 
-const Profile = () =>{
+const Profile = (props) =>{
    return (
       <div className={styles.profile}>
-         <AboutMe />
-         <MyPosts />
-         <Friends />
+         <AboutMe aboutMe = {props.aboutMe}/>
+         <MyPosts arrPosts = {props.arrPosts}/>
+         <Friends arrFriends = {props.arrFriends}/>
       </div>
    )
 }

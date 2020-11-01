@@ -1,4 +1,3 @@
-
 .profile__myPosts{
    padding: 50px;
    grid-row-start: 1;
@@ -9,4 +8,30 @@
    border-radius: 50px;
    background: rgba(255, 255, 255, 0.3);
    overflow: auto;
+}
+
+.posts__add{
+   margin-bottom: 20px;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+
+}
+
+.btn__addPost{
+   max-width: 120px;
+   padding: 10px 20px;
+   background: black;
+   color: white;
+   border-radius: 30px;
+   font-size: 16px;
+   border: 2px solid white;
+}
+
+textarea{
+   width: 70%;
+   padding: 10px 20px;
+   border-radius: 30px;
+   margin-bottom: 20px;
+   
 }

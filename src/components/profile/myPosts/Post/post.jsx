@@ -7,7 +7,7 @@ const Post = (props) =>{
          <img src={props.img} alt="" className={styles.post__logo}/>
          <div className={styles.post__content}>
             <span className={styles.post__comment}>{props.message}</span> 
-            <span className={styles.post__likes}>Likes {props.likes}</span> 
+            <span className={styles.post__likes}>Likes: {props.likes}</span> 
          </div>
       </div>
    )

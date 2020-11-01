@@ -10,3 +10,15 @@
   "side-bar profile"
   "footer footer";
 }
+
+a{
+  color: inherit;
+}
+
+a:visited{
+  color: inherit;
+}
+
+*::-webkit-scrollbar { width: 0; }
+* { -ms-overflow-style: none; }
+* { overflow: -moz-scrollbars-none; }

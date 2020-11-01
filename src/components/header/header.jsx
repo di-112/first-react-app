@@ -2,7 +2,7 @@ import React from 'react'
 import SideBar from '../side-bar/side-bar'
 import styles from './header.module.css'
 
-const pathLogo = 'https://free-images.com/or/8a4e/lion_head_isolated_art.jpg'
+const pathLogo = 'https://airshp.com/wp-content/uploads/AL1-LogoSuite2016-v3_MARK.png'
 
 const Header = () => {
    return (
