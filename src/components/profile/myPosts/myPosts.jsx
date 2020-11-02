@@ -4,13 +4,17 @@ import Post from './Post/post'
 
 const refOnTextArea = React.createRef();
 
-const addPost = () => alert(refOnTextArea.current.value) 
-
 const MyPosts = (props) =>{
+
+   const addPost = () => props.addPost() 
+
+   const updateNewPostValue = ()=> {
+      props.updateNewPostValue(refOnTextArea.current.value)
+   }
    return (
       <div className={styles.profile__myPosts}>
          <div className={styles.posts__add}>
-            <textarea ref={refOnTextArea} name="newPost" placeholder="New post..." ></textarea>
+            <textarea onChange={updateNewPostValue} ref={refOnTextArea} name="newPost" placeholder="New post..."  value={props.newPostCurrentValue}></textarea>
             <button onClick={addPost} className={styles.btn__addPost}>Add post</button>
          </div>
          <div className={styles.posts__list}>

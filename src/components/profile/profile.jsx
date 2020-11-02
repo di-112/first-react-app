@@ -8,7 +8,11 @@ const Profile = (props) =>{
    return (
       <div className={styles.profile}>
          <AboutMe aboutMe = {props.aboutMe}/>
-         <MyPosts arrPosts = {props.arrPosts}/>
+         <MyPosts arrPosts = {props.arrPosts} 
+         addPost = {props.addPost}
+         newPostCurrentValue = {props.newPostCurrentValue}
+         updateNewPostValue = {props.updateNewPostValue}
+         />
          <Friends arrFriends = {props.arrFriends}/>
       </div>
    )

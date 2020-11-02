@@ -9,6 +9,10 @@
    margin-bottom: 50px;
 }
 
+.dialog:last-child{
+   margin-bottom: 0;
+}
+
 .avatar{
    width: 60px;
    border-radius: 50%;

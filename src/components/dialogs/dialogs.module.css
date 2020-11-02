@@ -14,3 +14,29 @@
    padding: 20px;
    overflow: auto;
 }
+
+.messages__add{
+   margin-bottom: 20px;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+
+}
+
+.btn__addMessage{
+   max-width: 200px;
+   padding: 10px 20px;
+   background: black;
+   color: white;
+   border-radius: 30px;
+   font-size: 16px;
+   border: 2px solid white;
+}
+
+textarea{
+   width: 70%;
+   padding: 10px 20px;
+   border-radius: 30px;
+   margin-bottom: 20px;
+   
+}

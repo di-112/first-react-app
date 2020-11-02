@@ -10,6 +10,10 @@
    border-radius: 30px;
 }
 
+.post:last-child{
+   margin-bottom: 0;
+}
+
 .post__logo{
    width: 60px;
    border-radius: 50%;
