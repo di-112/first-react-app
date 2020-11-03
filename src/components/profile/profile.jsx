@@ -9,9 +9,8 @@ const Profile = (props) =>{
       <div className={styles.profile}>
          <AboutMe aboutMe = {props.aboutMe}/>
          <MyPosts arrPosts = {props.arrPosts} 
-         addPost = {props.addPost}
          newPostCurrentValue = {props.newPostCurrentValue}
-         updateNewPostValue = {props.updateNewPostValue}
+         dispatch = {props.dispatch}
          />
          <Friends arrFriends = {props.arrFriends}/>
       </div>

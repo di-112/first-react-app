@@ -17,19 +17,17 @@ const  App = (props)=> {
       <Route  path='/dialogs' render = {()=>{
         return <Dialogs arrDialogs={props.data.dialogsPage.arrDialogs} 
         arrMessages={props.data.dialogsPage.arrMessages}
-        addMessage = {props.functions.addMessage}
         newMessageCurrentValue = {props.data.dialogsPage.newMessageCurrentValue}
-        updateNewMessageValue = {props.functions.updateNewMessageValue}
+        dispatch = {props.store.dispatch.bind(props.store)}
         />}
       } 
       />
       <Route  path='/profile' render = {()=>{
         return <Profile aboutMe= {props.data.profilesPage.aboutMe} 
         arrPosts = {props.data.profilesPage.arrPosts} 
-        updateNewPostValue = {props.functions.updateNewPostValue}
         newPostCurrentValue = {props.data.profilesPage.newPostCurrentValue}
         arrFriends={props.data.profilesPage.arrFriends}
-        addPost = {props.functions.addPost}
+        dispatch = {props.store.dispatch.bind(props.store)}
         />}
       } 
       />

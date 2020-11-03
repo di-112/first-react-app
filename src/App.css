@@ -1,7 +1,7 @@
 .wrapper{
   height: 100vh;
   display: grid;
-  background: url(https://wallbox.ru/wallpapers/main/201121/df2ebda951eadf520d7e2288d9940f39.jpg) center/cover;
+  background: url(https://avatanplus.com/files/resources/original/56e53fc1cb5cb1536f810d29.jpg) center/cover;
   grid-template-columns: 120px 1fr;
   grid-template-rows: 100px 1fr 50px;
   gap: 10px;

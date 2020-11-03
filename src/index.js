@@ -2,14 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import data from './data'
-import render from './render'
+import store from './data'
+import App from './App';
 
 
-//const 
-render(data)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+const render = (data) => {
+   ReactDOM.render(
+       <App data={data} store={store}/>,
+     document.getElementById('root')
+   )
+ }
+
+ 
+ store.subscire(render)
+ render(store.data)
+
 reportWebVitals();

@@ -1,16 +1,16 @@
 import React from 'react'
 import styles from './myPosts.module.css'
 import Post from './Post/post'
+import {updateNewPostValueCreator, addPostCreator} from './../../../data'
 
 const refOnTextArea = React.createRef();
 
 const MyPosts = (props) =>{
 
-   const addPost = () => props.addPost() 
+   const addPost = () => props.dispatch(addPostCreator()) 
 
-   const updateNewPostValue = ()=> {
-      props.updateNewPostValue(refOnTextArea.current.value)
-   }
+   const updateNewPostValue = ()=> props.dispatch(updateNewPostValueCreator(refOnTextArea.current.value))
+   
    return (
       <div className={styles.profile__myPosts}>
          <div className={styles.posts__add}>
