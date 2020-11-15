@@ -3,15 +3,14 @@ import styles from './dialogs.module.css'
 import Dialog from './dialog/dialog'
 import Message from './message/message'
 import { Route } from 'react-router-dom'
-import {addMessageCreator, updateNewMessageValueCreator} from './../../data'
 
 const Dialogs = (props) => {   
 
    const refOnTextArea = React.createRef();
 
-   const addMessage = () => props.dispatch(addMessageCreator())
+   const addMessage = () => props.addMessage()
 
-   const updateNewMessageValue = () => props.dispatch(updateNewMessageValueCreator(refOnTextArea.current.value))
+   const updateNewMessageValue = () => props.updateNewMessageValue(refOnTextArea.current.value)
 
    return <div className={styles.dialogs}>
       <div className={styles.dialogs__list}>

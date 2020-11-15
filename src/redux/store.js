@@ -1,3 +1,5 @@
+import profileReducer from "./reducers/profileReducer";
+import dialogsReducer from "./reducers/dialogsReducer";
 
 const store = {
   data: {
@@ -119,56 +121,17 @@ const store = {
         }
   },
     
-  render() {},
+  callSubscribers() {},
 
-  _addPost() {
-      if(!this.data.profilesPage.newPostCurrentValue)alert('Please, enter something...')
-      else {
-        this.data.profilesPage.arrPosts.unshift(
-          { message: this.data.profilesPage.newPostCurrentValue, likes:  "0", img: "https://i03.fotocdn.net/s121/f6dbed805aaf6dfa/user_l/2777981224.jpg"},
-        )
-        this.data.profilesPage.newPostCurrentValue = ''
-        this.render(this.data);
-      } 
-  },
-
-  _addMessage() {
-    if(!this.data.dialogsPage.newMessageCurrentValue)alert('Please, enter something...')
-    else {
-      this.data.dialogsPage.arrMessages.unshift(
-        { content: this.data.dialogsPage.newMessageCurrentValue, avatar: 'https://i03.fotocdn.net/s121/f6dbed805aaf6dfa/user_l/2777981224.jpg'},
-      )
-      this.data.dialogsPage.newMessageCurrentValue = ''
-      this.render(this.data);
-    }
-  },
-
-  _updateNewPostValue(text) {
-    this.data.profilesPage.newPostCurrentValue = text;
-    this.render(this.data)
-  },
-
-  _updateNewMessageValue(text) {
-    this.data.dialogsPage.newMessageCurrentValue = text;
-    this.render(this.data)
-  },
-
-  subscire(observer) {
-    this.render = observer
-  },
+  subscire(observer) { this.callSubscribers = observer },
 
   dispatch(action) {
-    if(action.type === 'ADD-POST')this._addPost()
-    else if(action.type === 'UPDATE-NEW-POST-VALUE') this._updateNewPostValue(action.text)
-    else if(action.type === 'ADD-MESSAGE')this._addMessage()
-    else if(action.type === 'UPDATE-NEW-MESSAGE-VALUE')this._updateNewMessageValue(action.text)
+    this.data.profilesPage = profileReducer(this.data.profilesPage, action)
+    this.data.dialogsPage = dialogsReducer(this.data.dialogsPage, action)
+    this.callSubscribers(this.data)
   }
 
 }
 
-export const addPostCreator = () => ({type: 'ADD-POST'})
-export const updateNewPostValueCreator = (text) => ({type: 'UPDATE-NEW-POST-VALUE', text: text})
-export const addMessageCreator = () => ({type: 'ADD-MESSAGE'})
-export const updateNewMessageValueCreator  = (text) => ({type: 'UPDATE-NEW-MESSAGE-VALUE', text: text})
 
 export default store

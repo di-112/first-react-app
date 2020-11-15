@@ -12,7 +12,7 @@ const SideBar = () => {
             <li className={styles.sideBar__item}><NavLink to='/dialogs' activeClassName={styles.active}>message</NavLink></li>
             <li className={styles.sideBar__item}>setting</li>
             <li className={styles.sideBar__item}>friends</li>
-            <li className={styles.sideBar__item}>contact</li>
+            <li className={styles.sideBar__item}><NavLink to='/users' activeClassName={styles.active}>all users</NavLink></li>
          </ul>
       </nav>
    )

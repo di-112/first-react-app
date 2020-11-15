@@ -1,18 +1,32 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import AboutMe from './aboutMe/aboutMe'
 import Friends from './friends/friends'
-import MyPosts from './myPosts/myPosts'
+import MyPostsContainer from './myPosts/myPostsContainer'
 import styles from './profile.module.css'
+
+const mapStatetoProps_AboutMe = (state)=>{
+   return{
+      aboutMe: state.profilesPage.aboutMe
+   }
+}
+
+const mapStatetoProps_Friends = (state)=>{
+   return{
+      arrFriends: state.profilesPage.arrFriends
+   }
+}
+
+const AboutMeContainer = connect(mapStatetoProps_AboutMe)(AboutMe) 
+
+const FriendsContainer = connect(mapStatetoProps_Friends)(Friends) 
 
 const Profile = (props) =>{
    return (
       <div className={styles.profile}>
-         <AboutMe aboutMe = {props.aboutMe}/>
-         <MyPosts arrPosts = {props.arrPosts} 
-         newPostCurrentValue = {props.newPostCurrentValue}
-         dispatch = {props.dispatch}
-         />
-         <Friends arrFriends = {props.arrFriends}/>
+         <AboutMeContainer />
+         <MyPostsContainer />
+         <FriendsContainer />
       </div>
    )
 }
