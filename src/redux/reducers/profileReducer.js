@@ -109,4 +109,4 @@ export default profileReducer
 
 export const addPostCreator = () => ({type: ADD_POST})
 export const updateNewPostValueCreator = (text) => ({type: UPDATE_NEW_POST_VALUE, text})
-export const addFriendCreator = (friend) => ({type: ADD_FRIEND, friend})
+export const addFriend = (friend) => ({type: ADD_FRIEND, friend})

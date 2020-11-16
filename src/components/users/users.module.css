@@ -80,3 +80,25 @@
    right: 10px;
    bottom: 10px;
 }
+
+.numberPage{
+   margin-bottom: 20px;
+   width: 30%;
+   max-width: 500px;
+   display: flex;
+   justify-content: space-between;
+}
+
+.numberPage a{
+   font-size: 20px;
+   cursor: pointer;
+   transition: all 0.8s ease 0s;   
+}
+
+.numberPage a:hover{
+   transform: translateY(-5px);
+}
+
+.activePage{
+   font-weight: 700; 
+}
