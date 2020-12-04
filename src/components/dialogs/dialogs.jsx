@@ -3,15 +3,37 @@ import styles from './dialogs.module.css'
 import Dialog from './dialog/dialog'
 import Message from './message/message'
 import { Route } from 'react-router-dom'
+import { Field, reduxForm } from 'redux-form'
+import { maxLengthCreator, required } from '../common/formsValidators/validators'
+import { Textarea } from '../common/formsControl/formsControl'
+
+
+const maxLength200 = maxLengthCreator(200)
+
+const DialogsForm = (props) => {
+   
+   return (
+      <form onSubmit={props.handleSubmit}>
+          <Field 
+            name="message" 
+            placeholder="New Message..." 
+            component = {Textarea}
+            validate ={[required, maxLength200]}
+         />
+         <button className={styles.btn__addMessage}>Add message</button>
+      </form>
+   )
+} 
+
+
+const DialogsFormRedux = reduxForm({form: 'addDialogsForm'})(DialogsForm)
 
 const Dialogs = (props) => {   
 
-   const refOnTextArea = React.createRef();
-
-   const addMessage = () => props.addMessage()
-
-   const updateNewMessageValue = () => props.updateNewMessageValue(refOnTextArea.current.value)
-
+   const addMessage = (formData) => {
+      props.addMessage(formData.message)
+   }
+   
    return <div className={styles.dialogs}>
       <div className={styles.dialogs__list}>
            {props.arrDialogs.map((dialog,index) => {
@@ -24,8 +46,7 @@ const Dialogs = (props) => {
                { 
                   return (
                      <div className={styles.messages__add}>
-                     <textarea ref={refOnTextArea} name="newMessage" placeholder="New Message..." onChange={updateNewMessageValue} value={props.newMessageCurrentValue}></textarea>
-                     <button onClick={addMessage} className={styles.btn__addMessage}>Add message</button>
+                        <DialogsFormRedux onSubmit={addMessage}{...props}/>
                      </div>
                ) }
             } />)

@@ -10,7 +10,7 @@
    overflow: auto;
 }
 
-.posts__add{
+.posts__add, .form{
    margin-bottom: 20px;
    display: flex;
    flex-direction: column;
@@ -28,10 +28,7 @@
    border: 2px solid white;
 }
 
-textarea{
-   width: 70%;
-   padding: 10px 20px;
-   border-radius: 30px;
-   margin-bottom: 20px;
-   
+.form{
+   width: 100%;
 }
+

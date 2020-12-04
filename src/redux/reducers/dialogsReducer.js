@@ -1,18 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_VALUE = 'UPDATE-NEW-MESSAGE-VALUE'
-
-/*
-const _addMessage = (state) => {
-   if(!state.newMessageCurrentValue)alert('Please, enter something...')
-   else {
-      state.arrMessages.unshift(
-       { content: state.newMessageCurrentValue, avatar: 'https://i03.fotocdn.net/s121/f6dbed805aaf6dfa/user_l/2777981224.jpg'},
-     )
-     state.newMessageCurrentValue = ''
-   }
- }
-
-const _updateNewMessageValue = (state, text) => state.newMessageCurrentValue = text;*/
   
 const initialState = {
    
@@ -38,31 +24,24 @@ const initialState = {
       {content: 'Wow', avatar: 'https://i03.fotocdn.net/s121/f6dbed805aaf6dfa/user_l/2777981224.jpg'},
       {content: 'Hello', avatar: 'https://i03.fotocdn.net/s121/f6dbed805aaf6dfa/user_l/2777981224.jpg'},
       {content: 'Let is go!', avatar: 'https://i03.fotocdn.net/s121/f6dbed805aaf6dfa/user_l/2777981224.jpg'},
-    ],
+    ]
 
-    newMessageCurrentValue: ''
 }
 
 const dialogsReducer = (state=initialState, action) => {
+   const newState = {...state}
    switch(action.type){
       case ADD_MESSAGE:
-         if(!state.newMessageCurrentValue)alert('Please, enter something...')
-         else {
-            state.arrMessages.unshift(
-             { content: state.newMessageCurrentValue, avatar: 'https://i03.fotocdn.net/s121/f6dbed805aaf6dfa/user_l/2777981224.jpg'},
-           )
-           state.newMessageCurrentValue = ''
-         }
-         break
-      case UPDATE_NEW_MESSAGE_VALUE:
-         state.newMessageCurrentValue = action.text;
+         newState.arrMessages = [...state.arrMessages]
+         newState.arrMessages.unshift(
+            { content: action.message, avatar: 'https://i03.fotocdn.net/s121/f6dbed805aaf6dfa/user_l/2777981224.jpg'},
+         )       
          break
       default: break
    }
-   return state
+   return newState
 }
 
 export default dialogsReducer
 
-export const addMessageCreator = () => ({type: 'ADD-MESSAGE'})
-export const updateNewMessageValueCreator  = (text) => ({type: 'UPDATE-NEW-MESSAGE-VALUE', text: text})
+export const addMessage = (message) => ({type: ADD_MESSAGE, message})

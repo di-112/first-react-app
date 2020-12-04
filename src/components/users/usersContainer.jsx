@@ -1,61 +1,45 @@
 import { connect } from "react-redux";
 import { addFriend } from "../../redux/reducers/profileReducer";
-import { follow, setCurrentPage, setUsers, unfollow, setCountPages } from "../../redux/reducers/usersReducer";
+import { follow, setCurrentPage, setUsers, unfollow, getUsers,
+setCountPages, toggleIsFetching, setFollowingProgress } from "../../redux/reducers/usersReducer";
 import Users from "./users";
-import * as  axios from 'axios';
 import React from 'react'
+import Loader from "../common/loader/loader";
+import { compose } from "redux";
+import withAuthRedirect from "../../hocs/withAuthRedirect";
+import { getArrUsersSuper, getArrFollowingProgress, getArrFriends, getCountPages, getCurrentPage, getFollowingProgress, getIsFetching, getSizePage } from "../../redux/users-selectors";
 
+class UsersContainer extends React.Component {
 
+   componentDidMount = () => this.props.getUsers(this.props.currentPage,this.props.sizePage)
+   
+   changePage = (page) => this.props.getUsers(page,this.props.sizePage)
 
-class UsersComponent extends React.Component {
-   componentDidMount(){
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.sizePage}`).then( (response)=> {
-      this.props.setUsers(response.data.items)
-      this.props.setCountPages(Math.ceil(response.data.totalCount/this.props.sizePage))
-      })
+   followWithRequest = (user) => this.props.follow(user.id)
+   
+   unfollowWithRequest = (user) => this.props.unfollow(user.id)
+
+   render () {
+        if(this.props.isFetching)return  <Loader />
+        else return <Users {...this.props} unfollow={this.unfollowWithRequest} follow={this.followWithRequest} changePage={this.changePage} />
    }
-
-   changePage = (page) =>{
-      console.log(this.props)
-      this.props.setCurrentPage(page)
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.sizePage}`).then( (response)=> {this.props.setUsers(response.data.items)
-      })
-   }
- 
-   render(){
-        return <Users 
-           currentPage = {this.props.currentPage}
-           changePage = {this.changePage}
-           users = {this.props.users}
-           friends = {this.props.friends}
-           follow = {this.props.follow}
-           unfollow = {this.props.unfollow}
-           addFriend = {this.props.addFriend}
-        />
-      }
 }
 
 const mapStateToProps = (state) =>{
    return {
-      users: state.usersPage.users,
-      friends: state.profilesPage.arrFriends,
-      currentPage: state.usersPage.currentPage,
-      sizePage: state.usersPage.sizePage,
-      countPages: state.usersPage.countPages
+      users: getArrUsersSuper(state),
+      friends: getArrFriends(state),
+      currentPage: getCurrentPage(state),
+      sizePage: getSizePage(state),
+      countPages: getCountPages(state),
+      isFetching: getIsFetching(state),
+      followingProgress: getFollowingProgress(state),
+      arrFollowingProgress: getArrFollowingProgress(state)
    }
 }
 
-/*
-const mapDispatchToProps = (dispatch) =>{
-   return {
-      follow: (id)=>dispatch(followAC(id)),
-      unfollow: (id)=>dispatch(unfollowAC(id)),
-      addFriend: (friend)=>dispatch(addFriendCreator(friend)),
-      setUsers: (users)=>dispatch(setUsersAC(users)),
-      setCurrentPage: (currentPage)=>dispatch(setCurrentPageAC(currentPage)),
-      setCountPages: (countPages)=>dispatch(setCountPagesAC(countPages))
-   
-   }
-}
-*/
-export default connect(mapStateToProps, {follow, unfollow, addFriend, setUsers, setCurrentPage, setCountPages})(UsersComponent)
+export default compose(
+   connect(mapStateToProps, {follow, unfollow, addFriend, setUsers, getUsers,
+   setCurrentPage, setCountPages, toggleIsFetching, setFollowingProgress}),
+   withAuthRedirect
+)(UsersContainer)

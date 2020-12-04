@@ -1,4 +1,4 @@
-.wrapper{
+.wrapper, .initialize{
   height: 100vh;
   display: grid;
   background: url(https://avatanplus.com/files/resources/original/56e53fc1cb5cb1536f810d29.jpg) center/cover;
@@ -9,6 +9,14 @@
   "header header"
   "side-bar profile"
   "footer footer";
+}
+.initialize{
+  grid-area: profile;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(https://avatanplus.com/files/resources/original/56e53fc1cb5cb1536f810d29.jpg) center/cover;
+
 }
 
 a{

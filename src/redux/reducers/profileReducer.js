@@ -1,20 +1,10 @@
+import { profileAPI } from '../../api/api'
+
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_VALUE = 'UPDATE-NEW-POST-VALUE'
 const ADD_FRIEND = 'ADD_FRIEND'
-//const REMOVE_FRIEND = 'REMOVE_FRIEND'
-
-/*
-const _addPost = (state) => {
-   if(!state.newPostCurrentValue)alert('Please, enter something...')
-   else {
-      state.arrPosts.unshift(
-       { message: state.newPostCurrentValue, likes:  "0", img: "https://i03.fotocdn.net/s121/f6dbed805aaf6dfa/user_l/2777981224.jpg"},
-     )
-     state.newPostCurrentValue = ''
-   } 
-}
-
-const _updateNewPostValue = (state, text) => state.newPostCurrentValue = text;*/
+const SET_PROFILE = 'SET_PROFILE'
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const SET_STATUS = 'SET_STATUS'
 
 const initialState = {
    arrPosts: [
@@ -69,36 +59,43 @@ const initialState = {
      {id: 22, name: 'Lena',   avatar: "https://ae01.alicdn.com/kf/HTB1P2ToG79WBuNjSspeq6yz5VXaj/100-DIY-5D.jpg" },  
    ],
 
-   aboutMe: {
-     name: 'Incornito',
-     city: 'Chickago',
-     age: '25'
+   profileInformation: {
+      fullName: 'Incognito',
+      lookingForAJob: false,
+      userId: 0,
+      status: '',
+      photos: {
+      },
+      contacts: {}
    },
-   newPostCurrentValue: ''
+   isFetching: false
  }
 
 const profileReducer = (state = initialState, action) => {
    let newState = {...state}
    switch(action.type){
       case ADD_POST: 
-         if(!state.newPostCurrentValue)alert('Please, enter something...')
-         else {
-            newState.arrPosts = [...state.arrPosts]
-            newState.arrPosts.unshift(
-            { message: newState.newPostCurrentValue, likes:  "0", img: "https://i03.fotocdn.net/s121/f6dbed805aaf6dfa/user_l/2777981224.jpg"},
-            )
-            newState.newPostCurrentValue = ''
-         } 
-         break
-      case UPDATE_NEW_POST_VALUE: 
-         newState.newPostCurrentValue = action.text;
+         newState.arrPosts = [...state.arrPosts]
+         newState.arrPosts.unshift(
+         { message: action.message, likes:  "0", img: "https://i03.fotocdn.net/s121/f6dbed805aaf6dfa/user_l/2777981224.jpg"},
+         )
          break
       case ADD_FRIEND: 
          newState.arrFriends = [...state.arrFriends, action.friend];
          break
-     /* case REMOVE_FRIEND: 
-         newState.arrFriends = [...state.arrFriends].filter((friend)=>friend!=action.friend.id);
-         break*/
+       case SET_PROFILE: 
+         newState.profileInformation.fullName = action.profileInformation.fullName
+         newState.profileInformation.userId = action.profileInformation.userId
+         newState.profileInformation.lookingForAJob = action.profileInformation.lookingForAJob
+         newState.profileInformation.contacts = {... action.profileInformation.contacts}
+         newState.profileInformation.photos = {...action.profileInformation.photos};
+         break  
+      case SET_STATUS: 
+         newState.profileInformation.status = action.status
+         break 
+      case TOGGLE_IS_FETCHING: 
+         newState.isFetching = action.isFetching
+         return newState  
       default: break   
    }
    return newState
@@ -106,7 +103,34 @@ const profileReducer = (state = initialState, action) => {
 
 export default profileReducer
 
-
-export const addPostCreator = () => ({type: ADD_POST})
-export const updateNewPostValueCreator = (text) => ({type: UPDATE_NEW_POST_VALUE, text})
+export const addPost = (message) => ({type: ADD_POST, message})
 export const addFriend = (friend) => ({type: ADD_FRIEND, friend})
+export const setProfile = (profileInformation) => ({type: SET_PROFILE, profileInformation})
+export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
+export const setStatus = (status) => ({type: SET_STATUS, status})
+
+export const getProfile = (id) => (dispatch) =>{
+   dispatch(toggleIsFetching(true))
+   profileAPI.getProfile(id).then((data)=>{
+      dispatch(toggleIsFetching(false))
+      dispatch(setProfile(data))
+   })
+}
+
+
+export const getStatus = (id) => (dispatch) =>{
+   profileAPI.getStatus(id).then((status)=>{
+      dispatch(setStatus(status.data))
+  })
+}
+
+
+export const updateStatus = (status) => (dispatch) =>{
+  dispatch(toggleIsFetching(true)) 
+  profileAPI.updateStatus(status).then((response)=>{
+      if(response.data.resultCode===0){ dispatch(setStatus(status))
+      }
+      dispatch(toggleIsFetching(false))
+   })
+}
+

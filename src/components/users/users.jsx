@@ -1,8 +1,8 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import styles from './users.module.css' 
 
-
-const defaultAvatar = 'https://img2.freepng.ru/20180325/pcw/kisspng-computer-icons-user-profile-avatar-avatar-5ab751f86d73d2.5490619515219635124483.jpg'
+const defaultAvatar = 'https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/user_photos/000/788/896/datas/xlarge.png'
 
 const defaultStatus = 'Not status...' 
 
@@ -20,28 +20,26 @@ const Users = (props) =>  {
       return (
          <div className={styles.users}>
             <div className={styles.numberPage}>
-               {pages.map((page)=> <a 
-                     className={page==props.currentPage?styles.activePage:''}
+               {pages.map((page)=> <a className={page===props.currentPage?styles.activePage:''}
                      onClick={(e)=>props.changePage(page)}
                   >{page}</a>
-                  )
-               }
+                  )}
             </div>
             {props.users.map( (user)=> {
                return  (
                <div className= {styles.user}>
                   <div className={styles.logo}>
-                     <img src={user.photos.small==null?defaultAvatar:user.photos.small} alt=""/>
+                     <NavLink to={`profile/`+user.id}> <img src={user.photos.small==null?defaultAvatar:user.photos.small} alt=""/> </NavLink>
                      <span>{user.name}</span>
-                     <button  onClick={
+                     <button  disabled={props.arrFollowingProgress.some(id=>id===user.id)} onClick={
                            user.followed?
-                           ()=>props.unfollow(user.id):
-                           ()=>{props.follow(user.id); props.addFriend({avatar: user.photos.small==null?defaultAvatar:user.photos.small, name: user.name, id: props.friends.length+1})}
+                           ()=> props.unfollow(user):
+                           ()=>props.follow(user)
                         } 
                      > {user.followed?'unfollow':'follow'}  </button>
                   </div>
                   <div className={styles.info}>
-                     <div> status: <span>{user.status==null?defaultStatus:user.status}</span></div>
+                     <div> status: <span>{user.status?user.status:defaultStatus}</span></div>
                      <div> id: <span>{user.id}</span></div>
                   </div>
                </div>
