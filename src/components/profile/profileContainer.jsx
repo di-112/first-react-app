@@ -8,7 +8,7 @@ import withAuthRedirect from '../../hocs/withAuthRedirect';
 import { compose } from 'redux';
 
 const mapStatetoProps = (state)=>{
-  return{
+  return {
      profileInformation: {...state.profilesPage.profileInformation},
      arrFriends: state.profilesPage.arrFriends,
      arrPosts: state.profilesPage.arrPosts,

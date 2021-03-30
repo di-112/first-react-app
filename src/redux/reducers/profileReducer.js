@@ -109,28 +109,22 @@ export const setProfile = (profileInformation) => ({type: SET_PROFILE, profileIn
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
 export const setStatus = (status) => ({type: SET_STATUS, status})
 
-export const getProfile = (id) => (dispatch) =>{
+export const getProfile = (id) => async (dispatch) =>{
    dispatch(toggleIsFetching(true))
-   profileAPI.getProfile(id).then((data)=>{
-      dispatch(toggleIsFetching(false))
-      dispatch(setProfile(data))
-   })
+   const data = await profileAPI.getProfile(id)
+   dispatch(toggleIsFetching(false))
+   dispatch(setProfile(data))
 }
 
-
-export const getStatus = (id) => (dispatch) =>{
-   profileAPI.getStatus(id).then((status)=>{
-      dispatch(setStatus(status.data))
-  })
+export const getStatus = (id) => async (dispatch) =>{
+   const status =  await profileAPI.getStatus(id)
+   dispatch(setStatus(status.data))
 }
 
-
-export const updateStatus = (status) => (dispatch) =>{
-  dispatch(toggleIsFetching(true)) 
-  profileAPI.updateStatus(status).then((response)=>{
-      if(response.data.resultCode===0){ dispatch(setStatus(status))
-      }
-      dispatch(toggleIsFetching(false))
-   })
+export const updateStatus = (status) => async (dispatch) =>{
+   dispatch(toggleIsFetching(true)) 
+   const response =  await profileAPI.updateStatus(status)
+   if(response.data.resultCode===0) dispatch(setStatus(status))   
+   dispatch(toggleIsFetching(false))
 }
 

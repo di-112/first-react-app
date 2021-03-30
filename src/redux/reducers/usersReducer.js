@@ -68,31 +68,27 @@ export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, current
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
 export const setFollowingProgress = (followingProgress, userID) => ({type: SET_FOLLOWING_PROGRESS, followingProgress, userID})
 
-export const getUsers = (currentPage, sizePage) => (dispatch) => {
-      dispatch(toggleIsFetching(true))
-      usersAPI.getUsers(currentPage, sizePage).then( (data)=> {
-         dispatch(toggleIsFetching(false))
-         dispatch(setUsers(data.items))
-         dispatch(setCurrentPage(currentPage))
-         dispatch(setCountPages(Math.ceil(data.totalCount/sizePage)))
-      })
-   }
-
-
-export const unfollow = (id) => (dispatch) => {
-   dispatch(setFollowingProgress(true,id))     
-   usersAPI.deleteFollow(id).then(data=>{
-         if(data.resultCode === 0)dispatch(unfollowSuccess(id))
-         dispatch(setFollowingProgress(false,id))
-   })
+export const getUsers = (currentPage, sizePage) => async (dispatch) => {
+   dispatch(toggleIsFetching(true))
+   const data =  await usersAPI.getUsers(currentPage, sizePage)
+   dispatch(toggleIsFetching(false))
+   dispatch(setUsers(data.items))
+   dispatch(setCurrentPage(currentPage))
+   dispatch(setCountPages(Math.ceil(data.totalCount/sizePage)))
 }
 
+export const unfollow = (id) => async (dispatch) => {
+   dispatch(setFollowingProgress(true,id))   
+   const data = await usersAPI.deleteFollow(id)
+   if(data.resultCode === 0)dispatch(unfollowSuccess(id))
+   dispatch(setFollowingProgress(false,id))
+}
 
-export const follow = (id) => (dispatch) => {
-   dispatch(setFollowingProgress(true,id))     
-   usersAPI.postFollow(id).then(data=>{
-         if(data.resultCode === 0)dispatch(followSuccess(id))
-         dispatch(setFollowingProgress(false,id))
-   })
+export const follow = (id) => async (dispatch) => {
+   dispatch(setFollowingProgress(true,id))  
+   const data = await usersAPI.postFollow(id)
+   if(data.resultCode === 0)dispatch(followSuccess(id))
+   dispatch(setFollowingProgress(false,id))
+
 }
 

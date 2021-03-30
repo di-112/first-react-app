@@ -41,13 +41,14 @@ class ProfileStatus extends React.Component{
     })
   }
 
-  render(){
+  render() {
     return (
       <div className={styles.ptofile__status}>
       {this.state.editMode?
         <div className={styles.profile__updateStatus}>
-         <input autoFocus 
-         onChange={this.onChange} value={this.state.status} placeholder={this.state.status}></input>
+         <input
+            autoFocus onChange={this.onChange} value={this.state.status} placeholder={this.state.status}>
+         </input>
          <button onClick={()=>{this.toggleEditMode(); this.props.updateStatus(this.state.status)}}>Update</button>
          <button onClick={this.toggleEditMode}>Cancel</button>
         </div>:
@@ -57,7 +58,6 @@ class ProfileStatus extends React.Component{
     )
   }
 }
-
 
 class ProfileInformation extends React.Component { 
 
